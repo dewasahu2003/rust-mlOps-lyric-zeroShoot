@@ -26,29 +26,28 @@ enum Commands {
     },
 }
 
-fn main(){
-    let args=Cli::parse();
-    match args.command{
-        Some(Commands::Classify { file })=>{
-            println!("Classify {}",file);
+fn main() {
+    let args = Cli::parse();
+    match args.command {
+        Some(Commands::Classify { file }) => {
+            println!("Classify {}", file);
             let lyrics = lyric::read_lyrics(&file);
             let result = lyric::classify_lyrics(lyrics);
-            for label in result{
-                for l in label{
-                    println!("{}: {}",l.text,l.score)
+            for label in result {
+                for l in label {
+                    println!("{}: {}", l.text, l.score)
                 }
             }
         }
-        Some(Commands::Candidates {  })=>{
-            for candidate in lyric::get_all_zeroshotCandidate(){
-                println!("{}",candidate);
+        Some(Commands::Candidates {}) => {
+            for candidate in lyric::get_all_zeroshotCandidate() {
+                println!("{}", candidate);
             }
-            
         }
-        Some(Commands::Lyrics { file })=>{
-            println!("Lyrics: {}",file);
-            for line in lyric::read_lyrics(&file){
-                println!("{}",line);
+        Some(Commands::Lyrics { file }) => {
+            println!("Lyrics: {}", file);
+            for line in lyric::read_lyrics(&file) {
+                println!("{}", line);
             }
         }
         None => {
