@@ -9,3 +9,4 @@ edition = "2021"
 rust-bert = "0.21.0"
 clap = {version="4.3.19",features=["derive"]}
 sqlite = "0.31.0"
+torch-sys = "0.13.0"
