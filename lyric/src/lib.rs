@@ -44,9 +44,18 @@ pub fn read_lyrics(file:&str)->Vec<String>{
 }
 
 pub fn classify_lyrics(lyrics: Vec<String>)-> Vec<Vec<Label>>{
-    let candidates = get_all_zeroshotCandidate();
+    //extract label from sqlite db
+    let temp_candidates = get_all_zeroshotCandidate();
+    let candidates_labels: Vec<&str>=temp_candidates.iter().map(|s| s.as_str()).collect();
+    //join lyric into single file
+    let lyrics : String=lyrics.join(" ");
+
+    //convert to type std::convert::AsRef<[&str]>
+    let lyrics : &str=lyrics.as_ref();
+
+    //create model
     let model=ZeroShotClassificationModel::new(Default::default()).unwrap();
-    let classfication=model.predict(&lyrics, candidates, None, None);
+    let classfication=model.predict_multilabel([lyrics],candidates_labels,None,128)
     classification
 }
 
