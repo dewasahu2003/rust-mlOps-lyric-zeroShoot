@@ -7,18 +7,18 @@ rust-version:
 	clippy-driver --version		#rust linter
 
 format:
-	cargo fmt 
+	cd lyric && cargo fmt 
 
 lint:
-	cargo clippy 
+	cd lyric && cargo clippy 
 
 test:
-	cargo test --quiet
+	cd lyric && cargo test --quiet
 
 run:
-	cargo run
+	cd lyric && cargo run
 
 release:
-	cargo build --release
+	cd lyric && cargo build --release
 
 all: format lint test run

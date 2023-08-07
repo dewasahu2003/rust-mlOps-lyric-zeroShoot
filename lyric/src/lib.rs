@@ -5,14 +5,15 @@ use std::io::BufRead;
 use std::io::BufReader;
 
 fn create_db() -> sqlite::Connection {
-    let path =":memory";
+    let path = ":memory";
     let db = sqlite::open(path).unwrap();
 
-    db.execute("CREATE TABLE IF NOT EXISTS zeroshotclassification (id INTEGER PRIMARY KEY, label TEXT)")
-        .unwrap();
-
-    db.execute("DELETE FROM zeroshotclassification")  
+    db.execute(
+        "CREATE TABLE IF NOT EXISTS zeroshotclassification (id INTEGER PRIMARY KEY, label TEXT)",
+    )
     .unwrap();
+
+    db.execute("DELETE FROM zeroshotclassification").unwrap();
 
     db.execute("INSERT OR IGNORE INTO zeroshotclassification (label) VALUES ('rock')")
         .unwrap();
@@ -67,6 +68,6 @@ pub fn classify_lyrics(lyrics: Vec<String>) -> Vec<Vec<Label>> {
     //create model
     let model = ZeroShotClassificationModel::new(Default::default()).unwrap();
     let classification = model.predict_multilabel([lyrics], candidates_labels, None, 128);
-    
+
     classification
 }

@@ -1,0 +1,17 @@
+name: Rust-Song-Lyric-Classifier
+on: [push,pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with: 
+          toolchain: stable
+          profile: minimal
+          components: clippy,rustfmt
+      - name: Rust format
+        run: make format
+      - name: Rust lint
+        run: make lint
+ 
