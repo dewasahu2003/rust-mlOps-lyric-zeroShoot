@@ -5,18 +5,24 @@ use std::io::BufRead;
 use std::io::BufReader;
 
 fn create_db() -> sqlite::Connection {
-    let db = sqlite::open(":memory").unwrap();
-    db.execute("CREATE TABLE zeroshotclassification (id INTEGER PRIMARY KEY, label TEXT)")
+    let path =":memory";
+    let db = sqlite::open(path).unwrap();
+
+    db.execute("CREATE TABLE IF NOT EXISTS zeroshotclassification (id INTEGER PRIMARY KEY, label TEXT)")
         .unwrap();
-    db.execute("INSERT INTO zeroshotclassification (label) VALUES ('rock')")
+
+    db.execute("DELETE FROM zeroshotclassification")  
+    .unwrap();
+
+    db.execute("INSERT OR IGNORE INTO zeroshotclassification (label) VALUES ('rock')")
         .unwrap();
-    db.execute("INSERT INTO zeroshotclassification (label) VALUES ('hip hop')")
+    db.execute("INSERT OR IGNORE INTO zeroshotclassification (label) VALUES ('hip hop')")
         .unwrap();
-    db.execute("INSERT INTO zeroshotclassification (label) VALUES ('pop')")
+    db.execute("INSERT OR IGNORE INTO zeroshotclassification (label) VALUES ('pop')")
         .unwrap();
-    db.execute("INSERT INTO zeroshotclassification (label) VALUES ('country')")
+    db.execute("INSERT OR IGNORE INTO zeroshotclassification (label) VALUES ('country')")
         .unwrap();
-    db.execute("INSERT INTO zeroshotclassification (label) VALUES ('latin')")
+    db.execute("INSERT OR IGNORE INTO zeroshotclassification (label) VALUES ('latin')")
         .unwrap();
 
     db
@@ -60,6 +66,7 @@ pub fn classify_lyrics(lyrics: Vec<String>) -> Vec<Vec<Label>> {
 
     //create model
     let model = ZeroShotClassificationModel::new(Default::default()).unwrap();
-    let classfication = model.predict_multilabel([lyrics], candidates_labels, None, 128);
+    let classification = model.predict_multilabel([lyrics], candidates_labels, None, 128);
+    
     classification
 }

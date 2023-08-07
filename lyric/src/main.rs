@@ -27,6 +27,7 @@ enum Commands {
 }
 
 fn main() {
+    
     let args = Cli::parse();
     match args.command {
         Some(Commands::Classify { file }) => {
