@@ -1,3 +1,4 @@
+[![Rust-Song-Lyric-Classifier](https://github.com/dewasahu2003/rust-mlOps-lyric-zeroShoot/actions/workflows/main.yml/badge.svg)](https://github.com/dewasahu2003/rust-mlOps-lyric-zeroShoot/actions/workflows/main.yml)
 # Rust-Song-Lyric-Classifier
 
 ```use it```
