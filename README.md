@@ -7,5 +7,8 @@
 - `cargo run candidates` --  will give all the labels for classification
 - `cargo run lyrics` -- gives out the lyrics..
 
+`candidates` : `Rock, Hip Hop, Pop, Country, Latin`
+
 # feature that can be added
 - a simple website using github.io domain to put the text and get inference using the repository code
+- cover more genre(candidates) of songs
